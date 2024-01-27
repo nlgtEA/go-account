@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
@@ -16,7 +15,8 @@ func main() {
 	userHandler := handler.UserHandler{}
 	r.Get("/users", userHandler.HandlerUserShow)
 
-	http.ListenAndServe(":3000", r)
+	fs := http.FileServer(http.Dir("view/public/"))
+	r.Handle("/public/*", http.StripPrefix("/public/", fs))
 
-	fmt.Println("Hello I am working")
+	http.ListenAndServe(":3000", r)
 }
