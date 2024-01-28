@@ -15,6 +15,9 @@ func main() {
 	userHandler := handler.UserHandler{}
 	r.Get("/users", userHandler.HandlerUserShow)
 
+	dashboardHander := handler.DashboardHandler{}
+	r.Get("/", dashboardHander.HandleShow)
+
 	fs := http.FileServer(http.Dir("view/public/"))
 	r.Handle("/public/*", http.StripPrefix("/public/", fs))
 

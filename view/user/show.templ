@@ -5,7 +5,7 @@ import (
 )
 
 templ Hello() {
-  @layout.Base(){
+  @layout.Base(layout.BaseData{Name: "User"}){
     <h1 class="bg-red-100" >Hello from templ</h1>
   }
 }
