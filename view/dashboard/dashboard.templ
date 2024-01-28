@@ -3,8 +3,15 @@ package dashboard
 import "github.com/nlgtEA/go-account/view/layout"
 
 
-templ Show(){
+type DashboardProps struct {
+    UserEmail string
+}
+
+templ Show(props DashboardProps){
     @layout.Base(layout.BaseData{Name: "Dashboard"}){
+        <h1>
+          Hello, {props.UserEmail}
+        </h1>
         <p class="bg-red-50">
             Dashboard ne hhihihihi
         </p>
