@@ -12,7 +12,7 @@ import (
 
 type Asset struct {
 	ID           uuid.UUID
-	UserID       uuid.NullUUID
+	UserID       uuid.UUID
 	Name         string
 	Type         string
 	CurrentValue int32

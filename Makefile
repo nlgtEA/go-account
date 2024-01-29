@@ -7,7 +7,7 @@ migrateup:
 	goose -dir './db/schema' postgres "$(DB)" up
 
 migratedown:
-	goose -dir './db/schema' postgres $(DB) down
+	goose -dir './db/schema' postgres "$(DB)" down
 
 migration:
 	goose -dir './db/schema' create $(name) sql

@@ -1,10 +1,12 @@
 package dashboard
 
 import "github.com/nlgtEA/go-account/view/layout"
+import "github.com/nlgtEA/go-account/db/database"
 
 
 type DashboardProps struct {
     UserEmail string
+    Assets    []database.Asset
 }
 
 templ Show(props DashboardProps){
@@ -14,6 +16,7 @@ templ Show(props DashboardProps){
         </h1>
         <p class="bg-red-50">
             Dashboard ne hhihihihi
+            {props.Assets[0].Name}
         </p>
     }
 }

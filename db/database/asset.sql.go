@@ -20,7 +20,7 @@ RETURNING id, user_id, name, type, current_value, purchased_at, created_at, upda
 
 type CreateAssetParams struct {
 	ID           uuid.UUID
-	UserID       uuid.NullUUID
+	UserID       uuid.UUID
 	Name         string
 	Type         string
 	CurrentValue int32
@@ -52,4 +52,46 @@ func (q *Queries) CreateAsset(ctx context.Context, arg CreateAssetParams) (Asset
 		&i.UpdatedAt,
 	)
 	return i, err
+}
+
+const getAssetsByUserID = `-- name: GetAssetsByUserID :many
+SELECT id, user_id, name, type, current_value, purchased_at, created_at, updated_at FROM assets WHERE user_id = $1 LIMIT $2 OFFSET $3
+`
+
+type GetAssetsByUserIDParams struct {
+	UserID uuid.UUID
+	Limit  int32
+	Offset int32
+}
+
+func (q *Queries) GetAssetsByUserID(ctx context.Context, arg GetAssetsByUserIDParams) ([]Asset, error) {
+	rows, err := q.db.QueryContext(ctx, getAssetsByUserID, arg.UserID, arg.Limit, arg.Offset)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []Asset
+	for rows.Next() {
+		var i Asset
+		if err := rows.Scan(
+			&i.ID,
+			&i.UserID,
+			&i.Name,
+			&i.Type,
+			&i.CurrentValue,
+			&i.PurchasedAt,
+			&i.CreatedAt,
+			&i.UpdatedAt,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
 }
