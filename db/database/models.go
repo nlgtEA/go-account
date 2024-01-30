@@ -15,7 +15,7 @@ type Asset struct {
 	UserID       uuid.UUID
 	Name         string
 	Type         string
-	CurrentValue int32
+	CurrentValue int64
 	PurchasedAt  time.Time
 	CreatedAt    time.Time
 	UpdatedAt    time.Time
