@@ -2,6 +2,7 @@ package main
 
 import (
 	"database/sql"
+	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -39,5 +40,6 @@ func main() {
 	fs := http.FileServer(http.Dir("view/public/"))
 	r.Handle("/public/*", http.StripPrefix("/public/", fs))
 
+    fmt.Printf("Server running on port %v", 3000)
 	http.ListenAndServe(":3000", r)
 }
