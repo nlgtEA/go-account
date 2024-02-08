@@ -1,12 +1,11 @@
 package user
 
 import (
-  "github.com/nlgtEA/go-account/view/layout"
+	"github.com/nlgtEA/go-account/view/layout"
 )
 
 templ Hello() {
-  @layout.Base(layout.BaseData{Name: "User"}){
-    <h1 class="bg-red-100" >Hello from templ</h1>
-  }
+	@layout.Base(layout.BaseData{Name: "User"}) {
+		<h1 class="bg-red-100">Hello from templ</h1>
+	}
 }
-

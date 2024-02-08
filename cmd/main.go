@@ -40,6 +40,6 @@ func main() {
 	fs := http.FileServer(http.Dir("view/public/"))
 	r.Handle("/public/*", http.StripPrefix("/public/", fs))
 
-    fmt.Printf("Server running on port %v", 3000)
+	fmt.Printf("Server running on port %v", 3000)
 	http.ListenAndServe(":3000", r)
 }
